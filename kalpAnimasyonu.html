@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Animation</title>
+    <style>
+        canvas{
+            position: absolute;
+            left:0;
+            top:0;
+            width: 100%;
+            height: 100%;
+            background-color:#fff3f3;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="heart"></canvas>
+    <!--Js buraya gelecek-->
+    <script>
+        const canvas=
+    document.getElementById("heart");
+    const ctx=canvas.getContext("2d");
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+    //Ekran yeniden boyutlanınca otomatik ayar//
+    window.addEventListener("resize",()=>{
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;   
+    });
+    let time= 0.1;
+
+    function drawHeart(x,y,size,color){
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        ctx.bezierCurveTo(x-size/2,y-size/2,x-size,y+size/3,x,y+size);
+        ctx.bezierCurveTo(x+size,y+size/3,x+size/2,y-size/2,x,y);
+        ctx.fillStyle=color;
+        ctx.fill();
+    }
+    function animate(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        const pulse=Math.sin(time)*20+100;
+        drawHeart(canvas.width/2,canvas.height/2,pulse,"rgba(255,0,0,0.6)");
+        time+=0.1;
+        requestAnimationFrame(animate);
+    }
+    animate();
+    </script>
+
+
+</body>
+</html>
